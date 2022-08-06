@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+        <!--Email template for internal users -->
+        <record id="email_template_repair_module" model="mail.template">
+            <field name="name">Repair Report Mail</field>
+            <field name="model_id" ref="repair_module.model_repair_module"/>
+            <field name="email_from">${(object.user_id.email_formatted) |safe}</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <!--<field name="subject">${object.company_id.name} Invoice (Ref ${object.name or 'n/a'})</field>-->
+            <field name="subject">Repair Report</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                       Dear mr ${object.partner_id.name}
+                        <br/><br/><br/>
+                        this is to remind you that the
+                        <b>${object.date}</b>
+                        Today is the Last day
+                        <br/><br/>
+                        <!--Age: ${object.age}-->
+                    </p>
+                </div>
+            </field>
+        </record>
+        <!--closed date email to customers-->
+        <!--<record id="email_template_repair_module_closed_date" model="mail.template">
+            <field name="name">Repair Report Mail</field>
+            <field name="model_id" ref="repair_module.model_repair_module"/>
+            <field name="email_from">${(object.user_id.email_formatted) |safe}</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            &lt;!&ndash;<field name="subject">${object.company_id.name} Invoice (Ref ${object.name or 'n/a'})</field>&ndash;&gt;
+            <field name="subject">Repair Report</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                       Dear mr ${object.partner_id.name}
+                        <br/><br/><br/>
+                        This is to remind you that
+                        <b>${object.date}</b>
+                        Today is the Last day for registration
+                        <br/><br/>
+                        &lt;!&ndash;Age: ${object.age}&ndash;&gt;
+                    </p>
+                </div>
+            </field>
+        </record>-->
+    </data>
+</odoo>

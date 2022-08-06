@@ -1,0 +1,42 @@
+<odoo>
+    <record id="view_repair_config_setting_form" model="ir.ui.view">
+        <field name="name">Settings</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Warranty Management Settings" string="Warranty Management Settings"
+                     data-key="repair_module">
+                    <h2>Settings</h2>
+                    <div class="row mt16 o_settings_container" name="users_setting_container">
+                        <div class="o_setting_left_pane">
+                            <label for="faulty_location_id" string="Faulty Products"/>
+                            <field name="faulty_location_id"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_repair_configuration">
+        <field name="name">settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_repair_config_setting_form"/>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'repair_module'}</field>
+    </record>
+
+    <menuitem name="Configuration"
+              parent="menu_repair_module_root"
+              sequence="100"
+              id="menu_repair_configuration"/>
+    <menuitem name="Settings"
+              action="action_repair_configuration"
+              parent="menu_repair_configuration"
+              id="menu_repair_config_settings"/>
+
+</odoo>

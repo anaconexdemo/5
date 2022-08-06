@@ -1,0 +1,186 @@
+<odoo>
+    <data>
+        <!--     explicit list view definition-->
+
+        <record model="ir.ui.view" id="repair_module_list">
+            <field name="name">Warranty Management Tree</field>
+            <field name="model">repair.module</field>
+            <field name="arch" type="xml">
+                <tree string="Warranty Management" decoration-danger ="current_date &gt; date" decoration-muted ="date &gt; current_date"
+                      decoration-success="state == 'returned'" decoration-info ="state == 'replaced'"  sample="1">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="brand_id"/>
+                    <field name="vendor_id"/>
+                    <field name="date"/>
+                    <field name="state"/>
+                    <field name="boolean_date" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <!--form view definition-->
+        <record model="ir.ui.view" id="repair_module_form">
+            <field name="name">Warranty Management Form</field>
+            <field name="model">repair.module</field>
+            <field name="arch" type="xml">
+
+                <form string="Warranty Management Form">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,confirmed,returned,within,overdue,replaced,sent_to_supplier,claimed_from_supplier,received_faulty,closed"/>
+                        <button id="button_confirm" name="action_confirm"
+                                string="Confirm" type="object" class="btn-primary" states="draft"/>
+                                <!--returned and replaced-->
+                        <button id="button_returned" name="action_returned"
+                                string="Replace" type="object" class="btn-primary" states="received_faulty"/>
+                        <button id="button_replaced" name="action_replaced"
+                                string="Return" type="object" class="btn-primary" states="received_faulty"/>
+                        <button id="button_draft" name="action_draft"
+                                string="Reset to Draft" type="object" class="btn-primary" states="confirmed"/>
+                        <field name="is_faulty_received" invisible="1"/>
+                        <button id="button_faulty" name="action_faulty_location"
+                          string="Received Faulty Item" type="object" class="btn-primary"
+                                attrs="{'invisible': ['|',('is_faulty_received', '=', True),('state', '!=', 'confirmed')]}"
+                                />
+                        <button id="received_from_supplier" name="received_from_supplier"
+                                string="Receive From Supplier" type="object" class="btn-primary" states="sent_to_supplier"/>
+                        <button id="deliever_to_customer" name="deliever_to_customer"
+                                string="Deliver to Customer" type="object" class="btn-primary" states="claimed_from_supplier"/>
+                        <button id="closed" name="action_closed"
+                                string="Close" type="object" class="btn-primary"  states="replaced,returned"/>
+
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_open_repair_record" type="object" class="oe_stat_button"
+                                    icon="fa-pencil-square-o">
+                                <field name="orders_count" widget="statinfo" string="Bills"/>
+                            </button>
+                            <button name="action_open_repair_delivery_record" type="object" class="oe_stat_button"
+                                    icon="fa-truck">
+                                <field name="delivery_order_count" widget="statinfo" string="Delivery"/>
+                            </button>
+                            <button name="action_open_repair_receipt_record" type="object" class="oe_stat_button"
+                                    icon="fa-truck">
+                                <field name="receipt_order_count" widget="statinfo" string="Receipts"/>
+                            </button>
+
+                        </div>
+                        <div class="oe_title">
+                            <h1 class="text-info">
+                                <field name="name" readonly="1" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <br/>
+<!--                                <field name="closed_date"/>-->
+                                <field name="registration_date"/>
+                                <field name="date"/>
+                                <field name="vendor_id"/>
+                            </group>
+                            <group>
+                                <field name="product_id"/>
+                                <field name="categ_id"/>
+                                <field name="brand_id"/>
+                                <field name="user_id"/>
+                                <field name="boolean_date" invisible="1"/>
+                            </group>
+                            <label for="description" class="oe_edit_only" string="Fault Detail"/>
+                            <field name="description" style="background-color:#e5e4e2"/>
+                        </group>
+                        <notebook>
+                            <page string="Warranty Line">
+                                <field name="repair_line_ids">
+                                    <tree editable="bottom">
+                                        <field name="default_code"/>
+                                        <field name="new_code"/>
+                                        <field name="product_id"/>
+                                        <field name="uom_qty"/>
+                                        <field name="order_id"/>
+                                        <field name="repair_count"/>
+                                        <field name="repair_parent_id" invisible="1"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <field name="default_code"/>
+                                            <field name="new_code"/>
+                                            <field name="order_id"/>
+                                            <field name="product_id"/>
+                                            <field name="uom_qty"/>
+                                            <field name="repair_parent_id" invisible="1"/>
+                                        </group>
+                                    </form>
+
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <!--search view-->
+        <record model="ir.ui.view" id="repair_module_search">
+            <field name="name">Repair Module Search</field>
+            <field name="model">repair.module</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="brand_id"/>
+                    <field name="vendor_id"/>
+
+                </search>
+            </field>
+        </record>
+        <!--activity view-->
+        <!--<record model="ir.ui.view" id="repair_module_activity">
+            <field name="name">Repair Module Search</field>
+            <field name="model">repair.module</field>
+            <field name="arch" type="xml">
+                <activity>
+                </activity>
+            </field>
+        </record>-->
+
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="action_repair_module">
+            <field name="name">Warranty Management</field>
+            <field name="res_model">repair.module</field>
+            <field name="view_mode">tree,form,search</field>
+        </record>
+
+
+        <!-- menu item -->
+        <menuitem name="Warranty Management"
+                  id="menu_repair_module_root"/>
+        <!--child menu-->
+        <menuitem name="Warranty Management"
+                  sequence="2"
+                  parent="menu_repair_module_root"
+                  id="menu_repair_module_child"/>
+
+        <menuitem name="Warranty Claims"
+                  action="action_repair_module"
+                  sequence="3"
+                  parent="menu_repair_module_child"
+                  id="menu_repair_module_child_two"/>
+
+
+    </data>
+</odoo>
+
+
+
+
+
+

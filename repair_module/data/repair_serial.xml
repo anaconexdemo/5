@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--sequence for repair order repair.module-->
+    <data noupdate="1">
+    <record id="seq_repair_module" model="ir.sequence">
+        <field name="name">RO No.</field>
+        <field name="code">repair.module</field>
+        <field name="prefix">RON/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False" />
+    </record>
+</data>
+
+</odoo>

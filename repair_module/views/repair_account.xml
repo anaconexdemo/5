@@ -1,0 +1,25 @@
+<odoo>
+<!--    <record id="view_repair_account_move_inherit" model="ir.ui.view">-->
+<!--        <field name="name">account.move.inherit.view</field>-->
+<!--        <field name="model">account.move</field>-->
+<!--        <field name="inherit_id" ref="account.view_move_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='ref']" position="after">-->
+<!--                <field name="relation_field"/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//sheet/div/class[@name='button_box']" position="inside">-->
+<!--                &lt;!&ndash;<button string="Order Counts" type="object" name="action_count_orders" class="btn-primary"/>&ndash;&gt;-->
+<!--               <button name="action_count_orders" type="object" class="oe_stat_button" icon="fa-pencil-square-o">-->
+<!--                    <field name="invoice_count" widget="statinfo" string="Orders Count"/>-->
+<!--                </button>-->
+<!--            </xpath>-->
+<!--        </field>-->
+
+<!--    </record>-->
+
+
+</odoo>
+
+
+
+

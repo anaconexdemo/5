@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--<template id="repair_module_invoice_report">
+        <t t-call="web.html_container">
+
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row" style="height:40px;width:100%;border-top:2px solid #0D4242;border-bottom:2px solid #0D4242">
+                                        <table style="width:100%;border:none;" class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="text-align:center;">Date:&#160;&#160;&#160;&#160;<b><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></b></td>
+                                                    <td style="text-align:right;">Order No.:&#160;&#160;&#160;&#160;<b><t t-esc="doc.name"/></b></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row">
+                                        <table style="width:100%" class="table table-bordered">
+                                            <tbody>
+                                                <tr >
+                                                    <td><span>Vendor:&#160;&#160;&#160;&#160;&#160;</span><b><t t-esc="doc.partner_id.name"/></b></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="row">
+                                        <table style="width:100%" class="table table-bordered">
+                                            <thead style="background-color:#0D4242;height:40px;color:#ffffff;text-align:center">
+                                                <tr style="color:#ffffff;text-align:center">
+                                                    <th style="color:#ffffff">Product</th>
+                                                    <th style="color:#ffffff">Quantity</th>
+                                                    <th style="color:#ffffff">SO NO.</th>
+                                                </tr>
+                                            </thead>
+                                            <t t-foreach="doc.repair_line_ids" t-as="o">
+                                                <tbody styl="text-align:center">
+                                                    <tr class="text-center">
+                                                        <td><t t-esc="o.product_id.name"/></td>
+                                                        <td><t t-esc="o.uom_qty"/></td>
+                                                        <td><t t-esc="o.order_id.id"/></td>
+                                                    </tr>
+                                                </tbody>
+                                            </t>
+                                        </table>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>-->
+
+    <!--<record id="repair_module_invoice_report_id" model="ir.actions.report">
+        <field name="name">Create Invoice</field>
+        <field name="model">repair.module</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_file">repair_module.repair_module_invoice_report</field>
+        <field name="report_name">repair_module.repair_module_invoice_report</field>
+        <field name="binding_model_id" ref="repair_module.model_repair_module"/>
+        <field name="binding_type">report</field>
+    </record>-->
+
+</odoo>

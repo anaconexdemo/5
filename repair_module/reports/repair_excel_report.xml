@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+
+    <record id="repair_module_excel_report_id" model="ir.actions.report">
+        <field name="name">Warranty Management Excel Report</field>
+        <field name="model">repair.module</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_file">repair_module.repair_module_excel_report</field>
+        <field name="report_name">repair_module.repair_module_excel_report</field>
+        <field name="binding_model_id" ref="model_repair_module"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="repair_module_reporting">
+        <t t-call="web.html_container">
+
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <t t-if="doc.state in 'returned'">
+                            <style>
+                                .state{
+                                color:white;
+                                font-weight:bold;
+                                background-color:green;
+                                }
+                            </style>
+                        </t>
+                        <t t-elif="doc.state in 'replaced'">
+                            <style>
+                                .state{
+                                color:white;
+                                font-weight:bold;
+                                background-color:blue;
+                                }
+                            </style>
+                        </t>
+                        <t t-elif="doc.state in 'overdue'">
+                            <style>
+                                .state{
+                                color:white;
+                                font-weight:bold;
+                                background-color:red;
+                                }
+                            </style>
+                        </t>
+                        <t t-elif="doc.state in 'within'">
+                            <style>
+                                .state{
+                                color:white;
+                                font-weight:bold;
+                                background-color:black;
+                                }
+                            </style>
+                        </t>
+                        <t t-else="">
+                            <!--<style>
+                                .page {
+                                background-color:blue;
+                                }
+                            </style>-->
+                        </t>
+                        <style>
+                            .o_report_layout_boxed table tbody tr td {
+                            border-right: none !important;
+                            }
+                            .o_report_layout_boxed table {
+                            border-right: 1px solid #dee2e6 !important;
+                            }
+                        </style>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <div class="row" style="height:40px;border-top:2px solid #0D4242;border-bottom:2px solid #0D4242">
+                                        <table style="width:100%;border:none;" class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="text-left:right;border-left: 1px solid #dee2e6;">Estimated Delivery Date:&#160;&#160;&#160;&#160;<b><span t-esc="doc.date.strftime('%d-%b-%Y')"/></b></td>
+                                                    <td style="text-align:center;">Date:&#160;&#160;&#160;&#160;<b><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d-%b-%Y')"/></b></td>
+                                                    <td style="text-align:right;">Order No.:&#160;&#160;&#160;&#160;<b><t t-esc="doc.name"/></b></td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="row">
+                                        <table style=";width:100%" class="table table-bordered">
+                                            <tbody>
+
+                                                <tr>
+                                                    <td><span>Customer Name:&#160;&#160;&#160;&#160;&#160; </span><b><t t-esc="doc.partner_id.name"/></b></td>
+                                                    <!--                                                        <td colspan="2"><span>Document Reference:&#160;&#160;&#160;&#160; </span><b class="text-info"><t t-esc="doc.name"/></b></td>-->
+                                                    <td><span>Document Reference:&#160;&#160;&#160;&#160; </span><b class="text-warning"><t t-esc="doc.name"/></b></td>
+                                                    <td class="state"><span>State:&#160;&#160;&#160;&#160;</span><b>
+                                                        <t t-esc="dict(doc.fields_get(allfields=['state'])['state']['selection'])[doc.state]"/>
+                                                    </b></td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td><span>Product:&#160;&#160;&#160;&#160;&#160; </span><b><t t-esc="doc.product_id.name"/></b></td>
+                                                    <td><span>Brand:&#160;&#160;&#160;&#160; </span><b><t t-esc="doc.brand_id.name"/></b></td>
+                                                    <td><span>User:&#160;&#160;&#160;&#160; </span><b><t t-esc="doc.user_id.name"/></b></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- <div class="row" style="background-color:#0D4242;height:50px;width:100%">
+                                     </div>-->
+                                    <div class="row">
+                                        <table style="width:100%" class="table table-bordered">
+                                            <thead style="background-color:#0D4242;height:40px;color:#ffffff;text-align:center">
+                                                <tr style="color:#ffffff;text-align:left">
+                                                    <th style="color:#ffffff">Product</th>
+                                                    <th style="color:#ffffff">Category</th>
+                                                    <th style="color:#ffffff">Fault</th>
+                                                    <th style="color:#ffffff">Quantity</th>
+                                                    <th style="color:#ffffff">SO NO.</th>
+                                                </tr>
+                                            </thead>
+                                            <t t-foreach="doc.repair_line_ids" t-as="o">
+                                                <tbody styl="text-align:center">
+                                                    <tr>
+                                                        <td decoration-danger="state == 'confirmed'"><t t-esc="o.product_id.name"/></td>
+                                                        <td><t t-esc="doc.categ_id.name"/></td>
+                                                        <td><t t-esc="doc.description"/></td>
+                                                        <td><t t-esc="o.uom_qty"/></td>
+                                                        <td><t t-esc="o.order_id.name"/></td>
+                                                    </tr>
+                                                </tbody>
+                                            </t>
+                                        </table>
+
+                                    </div>
+                                    <div class="row" style="margin-top:90px">
+                                        <div class="col-5 text-center" style="border-top:1px solid #dee2e6">
+                                            <h6>
+                                                <b>Signature Receiving</b>
+                                            </h6>
+                                        </div>
+                                        <div class="col-2"/>
+                                        <div class="col-5 text-center" style="border-top:1px solid #dee2e6">
+                                            <h6>
+                                                <b>Signature Giving</b>
+                                            </h6>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="repair_module_reporting_id" model="ir.actions.report">
+        <field name="name">Repair Order</field>
+        <field name="model">repair.module</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_file">repair_module.repair_module_reporting</field>
+        <field name="report_name">repair_module.repair_module_reporting</field>
+        <field name="binding_model_id" ref="model_repair_module"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>
